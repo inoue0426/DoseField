@@ -1,0 +1,433 @@
+{
+  "data_source": "tahoebio/Tahoe-100M",
+  "dataset_revision": "main",
+  "shards": [
+    2274,
+    2277,
+    2280,
+    2283,
+    2286,
+    2289,
+    2292,
+    2295,
+    2298,
+    2301,
+    2304,
+    2307,
+    2310,
+    2313,
+    2316,
+    2319,
+    2322,
+    2325,
+    2328,
+    2331,
+    2334,
+    2337,
+    2340,
+    2343,
+    2346,
+    2349,
+    2352,
+    2355,
+    2358,
+    2361,
+    2364,
+    2367,
+    2370,
+    2373,
+    2376,
+    2379,
+    2382,
+    2385,
+    2388,
+    2391,
+    2394,
+    2397,
+    2400,
+    2403,
+    2406,
+    2409,
+    2412,
+    2415,
+    2418,
+    2421,
+    2424,
+    2427,
+    2430,
+    2433,
+    2436,
+    2439,
+    2442,
+    2445,
+    2448,
+    2451,
+    2454,
+    2457,
+    2460,
+    2463,
+    2466,
+    2469,
+    2472,
+    2475,
+    2478,
+    2481,
+    2484,
+    2487,
+    2490,
+    2493,
+    2496,
+    2499,
+    2502,
+    2505,
+    2508,
+    2511,
+    2514,
+    2517,
+    2520,
+    2523,
+    2526,
+    2529,
+    2532,
+    2535,
+    2538,
+    2541,
+    2544,
+    2547,
+    2550,
+    2553,
+    2556,
+    2559
+  ],
+  "dose_levels_found": [
+    0.0,
+    0.05,
+    0.5,
+    5.0
+  ],
+  "cell_line_id": "CVCL_0546",
+  "selection": [
+    {
+      "drug_clean": "Cytarabine",
+      "0.05": 2435,
+      "0.5": 2528,
+      "5.0": 2255
+    },
+    {
+      "drug_clean": "Topotecan (hydrochloride)",
+      "0.05": 2502,
+      "0.5": 2899,
+      "5.0": 2225
+    },
+    {
+      "drug_clean": "Ornidazole",
+      "0.05": 2606,
+      "0.5": 2037,
+      "5.0": 2270
+    },
+    {
+      "drug_clean": "Afatinib",
+      "0.05": 1949,
+      "0.5": 1992,
+      "5.0": 2124
+    },
+    {
+      "drug_clean": "Glasdegib",
+      "0.05": 1847,
+      "0.5": 2306,
+      "5.0": 2055
+    },
+    {
+      "drug_clean": "Ribociclib",
+      "0.05": 1892,
+      "0.5": 1838,
+      "5.0": 2021
+    },
+    {
+      "drug_clean": "Flumatinib (mesylate)",
+      "0.05": 1836,
+      "0.5": 2897,
+      "5.0": 1612
+    },
+    {
+      "drug_clean": "Fostamatinib (disodium hexahydrate)",
+      "0.05": 2159,
+      "0.5": 1678,
+      "5.0": 1564
+    },
+    {
+      "drug_clean": "Carbidopa (monohydrate)",
+      "0.05": 3044,
+      "0.5": 1550,
+      "5.0": 2315
+    },
+    {
+      "drug_clean": "Fumaric acid",
+      "0.05": 2119,
+      "0.5": 1926,
+      "5.0": 1462
+    },
+    {
+      "drug_clean": "Larotrectinib sulfate",
+      "0.05": 1628,
+      "0.5": 1449,
+      "5.0": 2108
+    },
+    {
+      "drug_clean": "Naproxen",
+      "0.05": 1785,
+      "0.5": 2658,
+      "5.0": 1420
+    },
+    {
+      "drug_clean": "Edoxaban (tosylate monohydrate)",
+      "0.05": 2994,
+      "0.5": 1374,
+      "5.0": 2565
+    },
+    {
+      "drug_clean": "Rimonabant (Hydrochloride)",
+      "0.05": 2082,
+      "0.5": 1249,
+      "5.0": 2290
+    },
+    {
+      "drug_clean": "Regorafenib",
+      "0.05": 2282,
+      "0.5": 1231,
+      "5.0": 2088
+    },
+    {
+      "drug_clean": "Daptomycin",
+      "0.05": 1352,
+      "0.5": 1223,
+      "5.0": 1588
+    },
+    {
+      "drug_clean": "Plicamycin",
+      "0.05": 2441,
+      "0.5": 2121,
+      "5.0": 1194
+    },
+    {
+      "drug_clean": "Ivabradine (hydrochloride)",
+      "0.05": 1577,
+      "0.5": 1018,
+      "5.0": 1913
+    },
+    {
+      "drug_clean": "Belumosudil",
+      "0.05": 2423,
+      "0.5": 2956,
+      "5.0": 957
+    },
+    {
+      "drug_clean": "Pravastatin (sodium)",
+      "0.05": 1789,
+      "0.5": 2031,
+      "5.0": 927
+    }
+  ],
+  "selected_records_per_condition_cap": 256,
+  "hyperparameters": {
+    "latent_dim": 50,
+    "n_hvg": 2000,
+    "hidden_layers": [
+      128,
+      128
+    ],
+    "lambda_kinetic": 0.001,
+    "seed": 0
+  },
+  "train_stats": {
+    "Cytarabine": {
+      "best_epoch": 41,
+      "best_val_mse": 7.087185382843018
+    },
+    "Topotecan (hydrochloride)": {
+      "best_epoch": 46,
+      "best_val_mse": 6.184347629547119
+    },
+    "Ornidazole": {
+      "best_epoch": 41,
+      "best_val_mse": 6.895187854766846
+    },
+    "Afatinib": {
+      "best_epoch": 41,
+      "best_val_mse": 7.027347564697266
+    },
+    "Glasdegib": {
+      "best_epoch": 49,
+      "best_val_mse": 6.715746879577637
+    },
+    "Ribociclib": {
+      "best_epoch": 57,
+      "best_val_mse": 6.5445027351379395
+    },
+    "Flumatinib (mesylate)": {
+      "best_epoch": 46,
+      "best_val_mse": 6.267500400543213
+    },
+    "Fostamatinib (disodium hexahydrate)": {
+      "best_epoch": 55,
+      "best_val_mse": 7.0192742347717285
+    },
+    "Carbidopa (monohydrate)": {
+      "best_epoch": 35,
+      "best_val_mse": 6.625659465789795
+    },
+    "Fumaric acid": {
+      "best_epoch": 40,
+      "best_val_mse": 6.934874534606934
+    },
+    "Larotrectinib sulfate": {
+      "best_epoch": 54,
+      "best_val_mse": 6.165799140930176
+    },
+    "Naproxen": {
+      "best_epoch": 51,
+      "best_val_mse": 6.625631809234619
+    },
+    "Edoxaban (tosylate monohydrate)": {
+      "best_epoch": 45,
+      "best_val_mse": 6.3017802238464355
+    },
+    "Rimonabant (Hydrochloride)": {
+      "best_epoch": 46,
+      "best_val_mse": 7.400506973266602
+    },
+    "Regorafenib": {
+      "best_epoch": 55,
+      "best_val_mse": 6.906619548797607
+    },
+    "Daptomycin": {
+      "best_epoch": 55,
+      "best_val_mse": 6.486791610717773
+    },
+    "Plicamycin": {
+      "best_epoch": 62,
+      "best_val_mse": 5.6203203201293945
+    },
+    "Ivabradine (hydrochloride)": {
+      "best_epoch": 43,
+      "best_val_mse": 6.951772689819336
+    },
+    "Belumosudil": {
+      "best_epoch": 49,
+      "best_val_mse": 6.911582946777344
+    },
+    "Pravastatin (sodium)": {
+      "best_epoch": 55,
+      "best_val_mse": 6.401395797729492
+    }
+  },
+  "package_versions": {
+    "numpy": "1.26.4",
+    "pandas": "3.0.1",
+    "scipy": "1.15.1",
+    "scikit_learn": "1.8.0",
+    "torch": "2.6.0"
+  },
+  "sha256": {
+    "train-02412-of-03388.parquet": "376bd3574189d5c150b39847e6968e473853ab9543b6bc8f7cde25487dbcab43",
+    "train-02310-of-03388.parquet": "80282bdca98c23225507d4d538c09d2072a099d99a36474733da6bd9f2f47c61",
+    "train-02331-of-03388.parquet": "af5f3f8ed2b1f82a6a24ae59ba61e7eb61f68e4d43a16b587e2b389a9bae4e2c",
+    "train-02433-of-03388.parquet": "ec6ce00894c664978131ae5570c132119e9b03f7b3124b859df53f2a2f3d474d",
+    "train-02427-of-03388.parquet": "3a7134676600cd392d0fbb8313630e726b2aef3c9acce71d89cf974210ada742",
+    "train-02520-of-03388.parquet": "870e9a937c19d355e60a5cbaf917064680789dc1cdd7d215dc22daa482640d54",
+    "train-02325-of-03388.parquet": "bf5bddf4e6e9894ba9c83c7dfe9a7a3217cbdda3ca3e469072af65fa605f4d81",
+    "train-02442-of-03388.parquet": "eee34be0eca43db712607c5985a1a3e25d6c2634bd9baec7571930b9ae684a18",
+    "train-02340-of-03388.parquet": "9731036262ecb4aea9ad8f02c9bc5b7690de759595a7e72cd63fe55eece9244d",
+    "train-02361-of-03388.parquet": "ecc8463a4005c5125be834da6a176b343dd6a7228784c369cf6672791cc7ffc7",
+    "train-02463-of-03388.parquet": "a00d7e29a1da534a35c9373ad66b78e043e6be8e0675cab469ea368025713bd3",
+    "train-02280-of-03388.parquet": "ef8f8e9630e419b362d4b9d56eb8651d38206d1ec02d87af5ab0cca923c04753",
+    "train-02304-of-03388.parquet": "b01eac1d47a3271ad883a8f021f3dd916d4bb39dedd998127b8d5bd100ece67e",
+    "train-02406-of-03388.parquet": "d18e54cbb5166627974dcdd3a2f30b4228fcc1a0fc29090e00e2681fc5695c2e",
+    "train-02481-of-03388.parquet": "a1cc0f07ae4f0540cf19e82f436b184a3572184f0bd4fecc5f2169aea1bd76c2",
+    "train-02505-of-03388.parquet": "3e91e94e4a1461c26a104621e4b8e4eee2f938c39ea97e050fb36b8e9faa3409",
+    "train-02541-of-03388.parquet": "ccec2992abb60dae4841f00bf1b1e1d5e14d3d4bd3512ed4bc79203701ec5fc1",
+    "train-02478-of-03388.parquet": "b62e8c136506a3976d58cd9cfee5d3565e9586a3c244fcaaaa70cad12e248a4d",
+    "train-02409-of-03388.parquet": "3f299089150dc03eedd78656789a0a52dc1bb8027f77a3db4cbc97f2d01d0a62",
+    "train-02388-of-03388.parquet": "459739eb82da6bcf2d883122e7fa04e828684b70c8165f5c99d25b53ddc553c9",
+    "train-02397-of-03388.parquet": "2f15effcfe78789d474e66b2d5eaeeb636803ef638a4b8c97a21371e32f3eb32",
+    "train-02511-of-03388.parquet": "3dcba6351d4cf2928fcd2e6ecb4e7c12e0a03d9470ec6171f7b915ce88dbd86a",
+    "train-02550-of-03388.parquet": "62083ab5cef6c5d88e251fe19f31f6c49899bb260d9fcff83e15f9c0537898a9",
+    "train-02355-of-03388.parquet": "9e9f0dac6e0ac300b03d0f47fbb421b05bef81cdac0b518726797b73130e30e7",
+    "train-02457-of-03388.parquet": "e5a5409c3c03a8082d486db8b39eefa673a403a09b70249d27e90657482143aa",
+    "train-02469-of-03388.parquet": "333dfc57df190c8d127ff23cb55a5c97dcca5ec0204cbdee1af1b4e149982c22",
+    "train-02535-of-03388.parquet": "b847bb5b042c618822c4a185544b55521dae7dd159f88dbd04f1d211650f1a9f",
+    "train-02514-of-03388.parquet": "99432b04b19ccd0837b0935802c1c946d40959df1558cd0e3636ac6167e80bc7",
+    "train-02448-of-03388.parquet": "492a6507b33948ec88b92c6f31aa3aae8ad0a1cb6a8c4fe5e8ecbdb9b357ca93",
+    "train-02490-of-03388.parquet": "99f07f9df087fab6fc7912b76182bc1e54d80821ee0ed207141978004876ec74",
+    "train-02295-of-03388.parquet": "07d773e862f992ed3e2a29b898fe467f61ac4e20506d6db1719b5651304fd504",
+    "train-02439-of-03388.parquet": "0c9181fa8f83bc446ed718ce542abd6ed1eea7d76c075c9b96f29c7630011eb2",
+    "train-02484-of-03388.parquet": "807d7f42f377a5fd413f5294c6c7a24d2d3a015712a65f88f358ea50159be8d5",
+    "train-02544-of-03388.parquet": "5d51241308c1e56c33e4c3c970670edd11e27ea6949ab98de9b578514030a93a",
+    "train-02418-of-03388.parquet": "92bfba4c269a78e0a278ebb802cf2cd1854b34d0f9989de8f7dc699a6e1a887a",
+    "train-02403-of-03388.parquet": "323a86bc5ad65c2826845f1085f2f6bc5526548dcbc85e31e5bf9ed46a0135ba",
+    "train-02301-of-03388.parquet": "353b19cb82f28f3f8ba05a4862673a2a85cb8e29026f3948c1aafd5985522ffb",
+    "train-02466-of-03388.parquet": "5ec59a8a53953706d9d14c0ed78f7f07bf0a22e29ef4b3c1ecc70e0365609e33",
+    "train-02364-of-03388.parquet": "1a642344abb0521ace4e9ad2b4ecb6d7683f8aa37489686cab4bda9f3cf0aaa3",
+    "train-02382-of-03388.parquet": "8e8770193e35c7c9f657d8cfe221f11dd5880f1915e3a1be39dfad78547edc29",
+    "train-02370-of-03388.parquet": "a44204bc1a9c270c647e4b663bcf22f1ad9ba24654a2b75f4aed2346706c744e",
+    "train-02277-of-03388.parquet": "4d07926350b2c63b2ddbc29c4827824b629eb2e5e7b86d824b757e507b469bb9",
+    "train-02472-of-03388.parquet": "c5e743faf9a117e0caad5c314971de96fd0217ac45e639ecec32cb666e36c650",
+    "train-02436-of-03388.parquet": "1989e8a2234ef75da302f76e5e9d3ed2c6b9f5d075bc6766666a3810df645fd2",
+    "train-02334-of-03388.parquet": "89f50cc54804099cb7790cfa71d2ab85ca9df805744bfc0cb2293c1b4bcb1506",
+    "train-02487-of-03388.parquet": "64a053bc029ab87600a1e27a9de04d9eb2c6445fb89cbe1d193bc6724d717111",
+    "train-02385-of-03388.parquet": "66329681cb5e2670b56959c52f4b1e5bf0b3dc4b6aff8bf2a1cab00e395972b0",
+    "train-02547-of-03388.parquet": "cc82b3be0a905b4442e22832532148e5d0304e518a6114034ddc57720ad35c6f",
+    "train-02319-of-03388.parquet": "47541682a8c63aa32dc14af42b223ef3f969ec8e1c63cb679722a9ce72cadd38",
+    "train-02454-of-03388.parquet": "d35288439e3a03d9b6db31203c91c35aad57f124dcedb57fc818655850998a5b",
+    "train-02289-of-03388.parquet": "7198ec1bbefd2aaf7eac3aac92889a5261cd2712eeac6fbdfd061ba1dd30c055",
+    "train-02553-of-03388.parquet": "6b6668c52305a95dacc9b8f3c65a897cc8df748132d83befce532a8f7d32f271",
+    "train-02508-of-03388.parquet": "37cfc3bfc8a78ec04594281da7b5bb0aeea72aeee7ba4e573fec5250f71e6498",
+    "train-02517-of-03388.parquet": "b86115b6ee31ffae289eb2e84fbb769add482e6103df06ed0a2b53391155424c",
+    "train-02529-of-03388.parquet": "4a184a34ec146e66290d8f4c1cd0267214bd84c0b74d7f4155d3faa987cf1d3d",
+    "train-02391-of-03388.parquet": "f911a1942b7ca7cd012a69b081c6dbc6cb3712d74e39953e3ca7aaeea5b6d8c6",
+    "train-02349-of-03388.parquet": "91616f7e29f02934655c20cc84d98febdfe08f466f4090ca3508a39ce2f7b4ed",
+    "train-02475-of-03388.parquet": "a1aa385d33f54a48ecefd8554415fbb7c8924375c2527b419cfc6e19e7a86581",
+    "train-02493-of-03388.parquet": "b32753bf64e5fc442c14c91c76d35e1fe1bb6f5e4f1657d6da841b9b61442131",
+    "train-02316-of-03388.parquet": "9cc81d7e0f3510165dd99bae00795b4d06eec55dfb3663159f03505dd06e5c11",
+    "train-02328-of-03388.parquet": "f7579c5d8d58c4a33cad02b5f7a1055e324840e7d09b6fade95974c81233256d",
+    "train-02274-of-03388.parquet": "9cd1fb11959cedc41e0697df03f04c96a39127c2351c414d055449251d1527aa",
+    "train-02292-of-03388.parquet": "bab675f89fe70b8cb0cc7b5576df5ce025053cd9dbc2011fbf49ebd91a1b21a7",
+    "train-02373-of-03388.parquet": "001bb84dfe1ba69526458b00222e7d554dc0f0937a9797f6c4ed013e9b06e59c",
+    "train-02352-of-03388.parquet": "9f822b5811ecc8cdd3ce37c11172866bfd687ec79a78bba7eed196e4eecea31c",
+    "train-02337-of-03388.parquet": "344fddaa22ffd6ae1a86cf3d775b01046a1c64e2e0b4d56ec4d31a2f229cd42a",
+    "train-02532-of-03388.parquet": "dc9db2f5e532d1716174776b473b1c734ea75e67f42c566ac82c82a80c13f84f",
+    "train-02346-of-03388.parquet": "c70152921cd5e45d3c1dc6f6099dd55a58bd4c686e09993d53784eb678d33fe2",
+    "train-02421-of-03388.parquet": "c9eec4aee8641ffbb271afc9ed09f5b3e88eb53bf935c032f505beb7f81b06c4",
+    "train-02526-of-03388.parquet": "01b885cd48be0f28c30b3cea36f183a85ca7c0f0d41536841aae00f5a9a5ceac",
+    "train-02400-of-03388.parquet": "4d7187577ff3d01f3f99c27a6d1bc12941f3bc95beeb7ea543a37f443aa93e6e",
+    "train-02367-of-03388.parquet": "60b16e1cb2d1e81eb3538a78d2adc97043b5088ac5d30032d304a688b1912ae3",
+    "train-02286-of-03388.parquet": "da62ab75888d63d83eff2a34d72e93dd9c9e965364f7eb2f36b2d26c34c2c58a",
+    "train-02523-of-03388.parquet": "1f7f2e6c3eebb70d8f629654c8d181d021f2327a47b925ce660d22e68303271c",
+    "train-02424-of-03388.parquet": "9ee872ad014135b478bd4a6e39f0fd4745879784a66820daf9d83aab5320ebd9",
+    "train-02343-of-03388.parquet": "f5a7e807157a3bf7c46d437a5b580805a7e989b2426830516b3b44568d722949",
+    "train-02499-of-03388.parquet": "e287c78e265db29fd1a01e608fc39ef9cc5828ac8020ca53b525f4943c5094ae",
+    "train-02460-of-03388.parquet": "92bf8e9abb2a94fc7cdee90b4eb0978e06411cb991b127e8c95c4eb45e2a6947",
+    "train-02283-of-03388.parquet": "7077bee76764eac0c785ac3464fdcce5015391d93962eeb4963688f477194d05",
+    "train-02559-of-03388.parquet": "09cecc193e52c2a6b5546cce70fd938b550f84cd108d7430a6ba07f4371dade4",
+    "train-02307-of-03388.parquet": "ea2d3df21ae24b49a4f7e6565f5303220b96795d6fcf182bcd765c8f220bdd94",
+    "train-02502-of-03388.parquet": "6e870b4833eab498605c2ad02b05eb9436a2f8e34b74080c1f5c21e41f479236",
+    "train-02376-of-03388.parquet": "0c7c1f093c62710f0defed39af07739056f16bb81bdec78b6071a50c17891aa8",
+    "train-02313-of-03388.parquet": "3f92cc733047cec4ce2b38533022c9e32573902c43fdc3b65fd94d96886b67f0",
+    "train-02430-of-03388.parquet": "76279f69b342c25f046dc1a88c8fe031958d63bccab65bee4bc48fb08051fc5d",
+    "train-02556-of-03388.parquet": "bffbe6861db48c3c76b52dc519e7e8435b10d1272aab8d46735efeed6ae7eeb4",
+    "train-02451-of-03388.parquet": "56ccc97e4960a4b08c27f3e5923df6d7167e7aae8ff9a3aa5608feb279bfca20",
+    "train-02496-of-03388.parquet": "368dd398c42ce39febc35ce09b67381556212de14f78736854abb876e5a95daf",
+    "train-02394-of-03388.parquet": "ad5f92fb6fd659be4c9028e5a56a7de8ac6c9080bc4c97ab5709c696c9413d72",
+    "train-02415-of-03388.parquet": "967d48c96ccae88731054302acfda34e1924f893da57796f0d7857768a6cfb0a",
+    "train-02358-of-03388.parquet": "778232a59bda60222bfcd4461060643681578cd2b045e5e7f9598160e0b210cb",
+    "train-02538-of-03388.parquet": "df7ed3be3e95045c3e676ac49a1121faef6d4fff3716112bb4eee6937e422a4a",
+    "train-02322-of-03388.parquet": "38c872a8433a240881a88cb150db7440e63823fe7d291569aef51e77b42bf2aa",
+    "train-02445-of-03388.parquet": "c031a7e75cb4c03aff019d872c9e80ed4f35ba09f89d692ae950c12a9a2aa35e",
+    "train-02298-of-03388.parquet": "d0021f1ac704b80d843f2a7a9b18a2473fa3ee41a62494928b1e12b8c7ef1f16",
+    "train-02379-of-03388.parquet": "dd85ba23a9cca577df7642fc4f2bdfe7f72f35df8380daf5e07f0649a5ad3ea7",
+    "metadata/cell_line_metadata.parquet": "67641f5bdd3fb077978ff1fec4d0d617490674bcd42850515ae3997194c29d4d",
+    "metadata/sample_metadata.parquet": "33167f0ce28cff8357c503cda67d1c7fea200bff6918ee1de3c4f3549175b9d3",
+    "metadata/drug_metadata.parquet": "7a04c7a6611e74c92253163b994ff0a47191928ee7511f1c2ca508cee0e79f28",
+    "metadata/gene_metadata.parquet": "d6104d1ca570d94832be0d27ffe8b7e4e54cfd366c9080239219f9c406eb751c"
+  }
+}
