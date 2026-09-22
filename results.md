@@ -151,3 +151,20 @@ ot_interpolation       0.4482   0.0035             0.1198
 ## Verdict
 
 Verdict: in this minimum experiment the dose field does not beat the non-dynamical baselines overall. It wins 3/20 drugs on cosine and 2/20 on DE Jaccard, but 0/20 on MMD; mean cosine is 0.0794 +/- 0.4483 versus 0.0982 +/- 0.4309 for nearest-0.05, mean MMD is 0.0346 +/- 0.0047 versus 0.0071 +/- 0.0035 for OT, and mean DE Jaccard is 0.1298 +/- 0.1088 versus 0.1534 +/- 0.1198 for OT. The field is especially poor for several endpoint-discordant responses, while the exploratory Pearson correlations of field performance with response magnitude were +0.72 (cosine), +0.14 (MMD), and +0.37 (DE); correlations with the threshold-index diagnostic were -0.36, +0.42, and -0.44 respectively. These correlations are descriptive only (n=20), and do not establish a reliable association with graded versus threshold-like response shape.
+
+## Multi-cell-line robustness follow-up
+
+The next two lines by total downloaded-shard cell count were tested, excluding CVCL_0546: CVCL_0459 (159,627 cells) and CVCL_0480 (133,797 cells). Both reused the same 20 drugs and all retained at least 200 cells per drug and positive dose. No new data were downloaded.
+
+| Cell line | Method | Cosine mean +/- SD | MMD mean +/- SD | DE Jaccard mean +/- SD |
+|---|---|---:|---:|---:|
+| CVCL_0459 | DoseField | 0.2860 +/- 0.3598 | 0.0354 +/- 0.0063 | 0.1852 +/- 0.0903 |
+| CVCL_0459 | Nearest 0.05 | 0.2472 +/- 0.3914 | 0.0075 +/- 0.0076 | 0.1849 +/- 0.0887 |
+| CVCL_0459 | Nearest 5 | 0.2056 +/- 0.4232 | 0.0077 +/- 0.0061 | 0.1905 +/- 0.0996 |
+| CVCL_0459 | OT | 0.2806 +/- 0.3723 | 0.0065 +/- 0.0044 | 0.2222 +/- 0.1178 |
+| CVCL_0480 | DoseField | 0.1531 +/- 0.4152 | 0.0371 +/- 0.0083 | 0.1480 +/- 0.1105 |
+| CVCL_0480 | Nearest 0.05 | 0.1078 +/- 0.4419 | 0.0127 +/- 0.0106 | 0.1333 +/- 0.0990 |
+| CVCL_0480 | Nearest 5 | 0.1196 +/- 0.4492 | 0.0127 +/- 0.0092 | 0.1531 +/- 0.0903 |
+| CVCL_0480 | OT | 0.1489 +/- 0.4227 | 0.0109 +/- 0.0063 | 0.1609 +/- 0.0960 |
+
+Decision: stop. CVCL_0459 improved mean cosine but lost on MMD and DE overlap; CVCL_0480 lost on all three mean comparisons against the strongest relevant baselines. Thus DoseField did not beat baselines on all three metrics overall on either additional line, and no further cell lines were screened. The exploratory field-performance correlations with response magnitude were (cosine/MMD/DE) +0.49/+0.56/+0.02 for CVCL_0459 and +0.69/+0.30/+0.34 for CVCL_0480; threshold-index correlations were -0.23/+0.71/-0.29 and -0.12/+0.53/-0.43, respectively. These are descriptive, not inferential.

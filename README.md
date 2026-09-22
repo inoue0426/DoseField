@@ -12,4 +12,6 @@ uv run --with huggingface_hub,pandas,pyarrow,numpy,scipy,scikit-learn,torch,pot 
 
 The run writes `results.csv`, `results.md`, and `config.json`. Downloaded data are stored under `data/` and are intentionally gitignored. `config.json` records the selected drugs, cell counts, shard checksums, model settings, and training epochs.
 
+For a specific already-verified cell line, pass `--cell-line CVCL_0459`; output names can be changed with `--results-name`, `--config-name`, and `--results-md-name`. The follow-up robustness check reused the existing plate-13 shards and screened only the second- and third-ranked lines by downloaded cell count.
+
 Metrics are population mean cosine similarity, RBF MMD, and Jaccard overlap of top-100 absolute pseudobulk log-fold-change genes against the observed 0.5 uM population. OT interpolation uses POT's exact Earth Mover plan with uniform weights and McCann midpoint barycenters.

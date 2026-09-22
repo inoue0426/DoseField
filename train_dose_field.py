@@ -37,6 +37,15 @@ MAX_CELLS_PER_CONDITION = 256
 N_DRUGS = 20
 N_HVG = 2_000
 LATENT_DIM = 50
+PREFERRED_DRUGS = [
+    "Cytarabine", "Topotecan (hydrochloride)", "Ornidazole", "Afatinib",
+    "Glasdegib", "Ribociclib", "Flumatinib (mesylate)",
+    "Fostamatinib (disodium hexahydrate)", "Carbidopa (monohydrate)",
+    "Fumaric acid", "Larotrectinib sulfate", "Naproxen",
+    "Edoxaban (tosylate monohydrate)", "Rimonabant (Hydrochloride)",
+    "Regorafenib", "Daptomycin", "Plicamycin",
+    "Ivabradine (hydrochloride)", "Belumosudil", "Pravastatin (sodium)",
+]
 
 
 def seed_everything(seed: int) -> None:
@@ -74,7 +83,7 @@ def download_subset(data_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     return sample, pd.read_parquet(metadata_dir / "gene_metadata.parquet") if (metadata_dir / "gene_metadata.parquet").exists() else pd.DataFrame()
 
 
-def collect_cells(data_dir: Path, sample: pd.DataFrame) -> tuple[list[dict[str, Any]], pd.DataFrame, str]:
+def collect_cells(data_dir: Path, sample: pd.DataFrame, requested_cell_line: str | None = None) -> tuple[list[dict[str, Any]], pd.DataFrame, str]:
     """Verify shards, select the best cell line, and retain capped cell records."""
     counts: list[pd.DataFrame] = []
     sample_map = sample.set_index("sample")[["dose", "drug_clean"]].to_dict("index")
@@ -87,7 +96,9 @@ def collect_cells(data_dir: Path, sample: pd.DataFrame) -> tuple[list[dict[str, 
         frame["drug_clean"] = frame["sample"].map(lambda x: sample_map[x]["drug_clean"])
         counts.append(frame.groupby(["cell_line_id", "drug_clean", "dose"]).size().rename("n").reset_index())
     all_counts = pd.concat(counts, ignore_index=True).groupby(["cell_line_id", "drug_clean", "dose"], as_index=False)["n"].sum()
-    cell_line = all_counts.groupby("cell_line_id")["n"].sum().idxmax()
+    cell_line = requested_cell_line or all_counts.groupby("cell_line_id")["n"].sum().idxmax()
+    if cell_line not in set(all_counts["cell_line_id"]):
+        raise RuntimeError(f"Requested cell line not found: {cell_line}")
     plate_sample = sample[sample["plate"].eq("plate13")]
     drug_sets = [set(g["drug_clean"]) for _, g in plate_sample[plate_sample["dose"].gt(0)].groupby("dose")]
     intersection = sorted(set.intersection(*drug_sets))
@@ -96,7 +107,10 @@ def collect_cells(data_dir: Path, sample: pd.DataFrame) -> tuple[list[dict[str, 
     qualified = wide[(wide[list(POSITIVE_DOSES)] >= 200).all(axis=1)]
     if len(qualified) < 10:
         raise RuntimeError(f"Only {len(qualified)} drugs meet the 200-cell threshold")
-    selected = qualified.assign(min_count=qualified[list(POSITIVE_DOSES)].min(axis=1)).sort_values("min_count", ascending=False).head(N_DRUGS).index.tolist()
+    qualified = qualified.assign(min_count=qualified[list(POSITIVE_DOSES)].min(axis=1)).sort_values("min_count", ascending=False)
+    preferred = [drug for drug in PREFERRED_DRUGS if drug in qualified.index]
+    selected = preferred + [drug for drug in qualified.index if drug not in preferred]
+    selected = selected[:N_DRUGS]
     keep = {(drug, dose) for drug in selected for dose in DOSES if dose > 0}
     keep.add(("DMSO_TF", 0.0))
     records: list[dict[str, Any]] = []
@@ -244,10 +258,14 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", type=Path, default=Path("data"))
     parser.add_argument("--out-dir", type=Path, default=Path("."))
+    parser.add_argument("--cell-line", type=str, default=None)
+    parser.add_argument("--results-name", type=str, default="results.csv")
+    parser.add_argument("--config-name", type=str, default="config.json")
+    parser.add_argument("--results-md-name", type=str, default="results.md")
     args = parser.parse_args()
     seed_everything(SEED)
     sample, _ = download_subset(args.data_dir)
-    records, selection, cell_line = collect_cells(args.data_dir, sample)
+    records, selection, cell_line = collect_cells(args.data_dir, sample, args.cell_line)
     matrix, gene_names, _ = expression_matrix(records, N_HVG)
     meta = pd.DataFrame([(r["drug_clean"], float(r["dose"])) for r in records], columns=["drug", "dose"])
     train_mask = meta["dose"].isin((0.0, 0.05, 5.0)).to_numpy()
@@ -272,10 +290,10 @@ def main() -> None:
             pred_de = top_de_genes(pca.inverse_transform(control), pca.inverse_transform(prediction), gene_names)
             results.append({"drug": drug, "cell_line_id": cell_line, "method": method, "cosine_mean": cosine_mean(prediction, observed), "mmd_rbf": mmd_rbf(prediction, observed), "de_jaccard_top100": len(pred_de & observed_de) / max(1, len(pred_de | observed_de)), "response_magnitude_latent": response_magnitude, "threshold_index_latent": threshold_index, "n_observed_0.5": len(observed)})
     result_df = pd.DataFrame(results)
-    result_df.to_csv(args.out_dir / "results.csv", index=False)
+    result_df.to_csv(args.out_dir / args.results_name, index=False)
     files = list(args.data_dir.glob("train-*.parquet")) + list((args.data_dir / "metadata").glob("*.parquet"))
     config = {"data_source": REPO_ID, "dataset_revision": "main", "shards": list(SHARD_INDICES), "dose_levels_found": sorted(sample[sample.plate.eq("plate13")].dose.unique().tolist()), "cell_line_id": cell_line, "selection": selection.to_dict(orient="records"), "selected_records_per_condition_cap": MAX_CELLS_PER_CONDITION, "hyperparameters": {"latent_dim": LATENT_DIM, "n_hvg": N_HVG, "hidden_layers": [128, 128], "lambda_kinetic": 1e-3, "seed": SEED}, "train_stats": train_stats, "package_versions": {"numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__, "scikit_learn": sklearn.__version__, "torch": torch.__version__, "pot": ot.__version__}, "sha256": {str(p.relative_to(args.data_dir)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
-    (args.out_dir / "config.json").write_text(json.dumps(config, indent=2) + "\n")
+    (args.out_dir / args.config_name).write_text(json.dumps(config, indent=2) + "\n")
     means = result_df.groupby("method")[["cosine_mean", "mmd_rbf", "de_jaccard_top100"]].mean()
     stds = result_df.groupby("method")[["cosine_mean", "mmd_rbf", "de_jaccard_top100"]].std()
     lines = [
@@ -299,7 +317,7 @@ def main() -> None:
         "",
         "Verdict: in this minimum experiment the dose field does not beat the non-dynamical baselines overall. It wins 3/20 drugs on cosine and 2/20 on DE Jaccard, but 0/20 on MMD; mean cosine is 0.0794 +/- 0.4483 versus 0.0982 +/- 0.4309 for nearest-0.05, mean MMD is 0.0346 +/- 0.0047 versus 0.0071 +/- 0.0035 for OT, and mean DE Jaccard is 0.1298 +/- 0.1088 versus 0.1534 +/- 0.1198 for OT. The field is especially poor for several endpoint-discordant responses, while the exploratory Pearson correlations of field performance with response magnitude were +0.72 (cosine), +0.14 (MMD), and +0.37 (DE); correlations with the threshold-index diagnostic were -0.36, +0.42, and -0.44 respectively. These correlations are descriptive only (n=20), and do not establish a reliable association with graded versus threshold-like response shape.",
     ]
-    (args.out_dir / "results.md").write_text("\n".join(lines) + "\n")
+    (args.out_dir / args.results_md_name).write_text("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":
