@@ -23,8 +23,8 @@ import torch
 import scipy
 import sklearn
 from scipy import sparse
-from scipy.optimize import linear_sum_assignment
 from sklearn.decomposition import PCA
+import ot
 from sklearn.metrics import pairwise_distances
 
 
@@ -215,12 +215,14 @@ def mmd_rbf(x: np.ndarray, y: np.ndarray) -> float:
 
 
 def ot_population(x: np.ndarray, y: np.ndarray) -> np.ndarray:
-    """Approximate McCann interpolation with equal-size optimal assignment."""
+    """Compute McCann interpolation using POT's exact Earth Mover plan."""
     n = min(len(x), len(y))
     x, y = x[:n], y[:n]
     cost = pairwise_distances(x, y, metric="sqeuclidean")
-    rows, cols = linear_sum_assignment(cost)
-    return 0.5 * (x[rows] + y[cols])
+    weights = np.full(n, 1.0 / n)
+    plan = ot.emd(weights, weights, cost)
+    barycentric_y = n * plan @ y
+    return 0.5 * (x + barycentric_y)
 
 
 def cosine_mean(x: np.ndarray, y: np.ndarray) -> float:
@@ -272,7 +274,7 @@ def main() -> None:
     result_df = pd.DataFrame(results)
     result_df.to_csv(args.out_dir / "results.csv", index=False)
     files = list(args.data_dir.glob("train-*.parquet")) + list((args.data_dir / "metadata").glob("*.parquet"))
-    config = {"data_source": REPO_ID, "dataset_revision": "main", "shards": list(SHARD_INDICES), "dose_levels_found": sorted(sample[sample.plate.eq("plate13")].dose.unique().tolist()), "cell_line_id": cell_line, "selection": selection.to_dict(orient="records"), "selected_records_per_condition_cap": MAX_CELLS_PER_CONDITION, "hyperparameters": {"latent_dim": LATENT_DIM, "n_hvg": N_HVG, "hidden_layers": [128, 128], "lambda_kinetic": 1e-3, "seed": SEED}, "train_stats": train_stats, "package_versions": {"numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__, "scikit_learn": sklearn.__version__, "torch": torch.__version__}, "sha256": {str(p.relative_to(args.data_dir)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
+    config = {"data_source": REPO_ID, "dataset_revision": "main", "shards": list(SHARD_INDICES), "dose_levels_found": sorted(sample[sample.plate.eq("plate13")].dose.unique().tolist()), "cell_line_id": cell_line, "selection": selection.to_dict(orient="records"), "selected_records_per_condition_cap": MAX_CELLS_PER_CONDITION, "hyperparameters": {"latent_dim": LATENT_DIM, "n_hvg": N_HVG, "hidden_layers": [128, 128], "lambda_kinetic": 1e-3, "seed": SEED}, "train_stats": train_stats, "package_versions": {"numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__, "scikit_learn": sklearn.__version__, "torch": torch.__version__, "pot": ot.__version__}, "sha256": {str(p.relative_to(args.data_dir)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
     (args.out_dir / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     means = result_df.groupby("method")[["cosine_mean", "mmd_rbf", "de_jaccard_top100"]].mean()
     stds = result_df.groupby("method")[["cosine_mean", "mmd_rbf", "de_jaccard_top100"]].std()
@@ -295,7 +297,7 @@ def main() -> None:
         "",
         "## Verdict",
         "",
-        "Verdict: in this minimum experiment the dose field does not beat the non-dynamical baselines overall. It wins 3/20 drugs on cosine and 2/20 on DE Jaccard, but 0/20 on MMD; mean cosine is 0.0794 +/- 0.4483 versus 0.0982 +/- 0.4309 for nearest-0.05, mean MMD is 0.0346 +/- 0.0047 versus 0.0071 +/- 0.0035 for OT, and mean DE Jaccard is 0.1294 +/- 0.1079 versus 0.1534 +/- 0.1198 for OT. The field is especially poor for several endpoint-discordant responses, while the exploratory Pearson correlations of field performance with response magnitude were +0.72 (cosine), +0.14 (MMD), and +0.37 (DE); correlations with the threshold-index diagnostic were -0.36, +0.42, and -0.44 respectively. These correlations are descriptive only (n=20), and do not establish a reliable association with graded versus threshold-like response shape.",
+        "Verdict: in this minimum experiment the dose field does not beat the non-dynamical baselines overall. It wins 3/20 drugs on cosine and 2/20 on DE Jaccard, but 0/20 on MMD; mean cosine is 0.0794 +/- 0.4483 versus 0.0982 +/- 0.4309 for nearest-0.05, mean MMD is 0.0346 +/- 0.0047 versus 0.0071 +/- 0.0035 for OT, and mean DE Jaccard is 0.1298 +/- 0.1088 versus 0.1534 +/- 0.1198 for OT. The field is especially poor for several endpoint-discordant responses, while the exploratory Pearson correlations of field performance with response magnitude were +0.72 (cosine), +0.14 (MMD), and +0.37 (DE); correlations with the threshold-index diagnostic were -0.36, +0.42, and -0.44 respectively. These correlations are descriptive only (n=20), and do not establish a reliable association with graded versus threshold-like response shape.",
     ]
     (args.out_dir / "results.md").write_text("\n".join(lines) + "\n")
 

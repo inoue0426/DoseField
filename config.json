@@ -242,91 +242,92 @@
   "train_stats": {
     "Cytarabine": {
       "best_epoch": 41,
-      "best_val_mse": 7.087185382843018
+      "best_val_mse": 7.086368560791016
     },
     "Topotecan (hydrochloride)": {
       "best_epoch": 46,
-      "best_val_mse": 6.184347629547119
+      "best_val_mse": 6.184001445770264
     },
     "Ornidazole": {
       "best_epoch": 41,
-      "best_val_mse": 6.895187854766846
+      "best_val_mse": 6.893433570861816
     },
     "Afatinib": {
       "best_epoch": 41,
-      "best_val_mse": 7.027347564697266
+      "best_val_mse": 7.028203964233398
     },
     "Glasdegib": {
       "best_epoch": 49,
-      "best_val_mse": 6.715746879577637
+      "best_val_mse": 6.718196392059326
     },
     "Ribociclib": {
       "best_epoch": 57,
-      "best_val_mse": 6.5445027351379395
+      "best_val_mse": 6.543277263641357
     },
     "Flumatinib (mesylate)": {
       "best_epoch": 46,
-      "best_val_mse": 6.267500400543213
+      "best_val_mse": 6.266870498657227
     },
     "Fostamatinib (disodium hexahydrate)": {
       "best_epoch": 55,
-      "best_val_mse": 7.0192742347717285
+      "best_val_mse": 7.018078327178955
     },
     "Carbidopa (monohydrate)": {
       "best_epoch": 35,
-      "best_val_mse": 6.625659465789795
+      "best_val_mse": 6.625603199005127
     },
     "Fumaric acid": {
       "best_epoch": 40,
-      "best_val_mse": 6.934874534606934
+      "best_val_mse": 6.935486793518066
     },
     "Larotrectinib sulfate": {
       "best_epoch": 54,
-      "best_val_mse": 6.165799140930176
+      "best_val_mse": 6.165533542633057
     },
     "Naproxen": {
       "best_epoch": 51,
-      "best_val_mse": 6.625631809234619
+      "best_val_mse": 6.6253981590271
     },
     "Edoxaban (tosylate monohydrate)": {
       "best_epoch": 45,
-      "best_val_mse": 6.3017802238464355
+      "best_val_mse": 6.300891399383545
     },
     "Rimonabant (Hydrochloride)": {
       "best_epoch": 46,
-      "best_val_mse": 7.400506973266602
+      "best_val_mse": 7.398587226867676
     },
     "Regorafenib": {
       "best_epoch": 55,
-      "best_val_mse": 6.906619548797607
+      "best_val_mse": 6.908318996429443
     },
     "Daptomycin": {
       "best_epoch": 55,
-      "best_val_mse": 6.486791610717773
+      "best_val_mse": 6.486358165740967
     },
     "Plicamycin": {
       "best_epoch": 62,
-      "best_val_mse": 5.6203203201293945
+      "best_val_mse": 5.619866847991943
     },
     "Ivabradine (hydrochloride)": {
       "best_epoch": 43,
-      "best_val_mse": 6.951772689819336
+      "best_val_mse": 6.953006267547607
     },
     "Belumosudil": {
       "best_epoch": 49,
-      "best_val_mse": 6.911582946777344
+      "best_val_mse": 6.911717891693115
     },
     "Pravastatin (sodium)": {
       "best_epoch": 55,
-      "best_val_mse": 6.401395797729492
+      "best_val_mse": 6.403831958770752
     }
   },
   "package_versions": {
-    "numpy": "1.26.4",
+    "numpy": "2.5.3",
     "pandas": "3.0.1",
-    "scipy": "1.15.1",
+    "scipy": "1.18.1",
     "scikit_learn": "1.8.0",
-    "torch": "2.6.0"
+    "torch": "2.6.0",
+    "pot": "0.9.7.post1"
   },
   "sha256": {
     "train-02412-of-03388.parquet": "376bd3574189d5c150b39847e6968e473853ab9543b6bc8f7cde25487dbcab43",

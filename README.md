@@ -7,10 +7,9 @@ The input is the public CC0 [Tahoe-100M dataset](https://huggingface.co/datasets
 ## Reproduce
 
 ```bash
-uv run --with huggingface_hub,pandas,pyarrow,numpy,scipy,scikit-learn,torch,tabulate python train_dose_field.py
+uv run --with huggingface_hub,pandas,pyarrow,numpy,scipy,scikit-learn,torch,pot python train_dose_field.py
 ```
 
 The run writes `results.csv`, `results.md`, and `config.json`. Downloaded data are stored under `data/` and are intentionally gitignored. `config.json` records the selected drugs, cell counts, shard checksums, model settings, and training epochs.
 
-Metrics are population mean cosine similarity, RBF MMD, and Jaccard overlap of top-100 absolute pseudobulk log-fold-change genes against the observed 0.5 uM population. OT interpolation uses a minimum-cost equal-size assignment as the discrete McCann coupling; this is equivalent to the equal-mass linear assignment formulation for the sampled populations.
-
+Metrics are population mean cosine similarity, RBF MMD, and Jaccard overlap of top-100 absolute pseudobulk log-fold-change genes against the observed 0.5 uM population. OT interpolation uses POT's exact Earth Mover plan with uniform weights and McCann midpoint barycenters.
